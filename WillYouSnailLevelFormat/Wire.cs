@@ -43,7 +43,7 @@ namespace WillYouSnailLevelFormat
         /// <summary>
         /// Create a wire from a Level and two LevelElements that are in the Level.
         /// </summary>
-        public Wire(Level lvl, LevelElement from, LevelElement to)
+        public Wire(BaseLevel lvl, LevelElement from, LevelElement to)
         {
             ElementReference f = new ElementReference(lvl.GetLevelElementsOfID(from.ID).IndexOf(from),from.ID);
             ElementReference t = new ElementReference(lvl.GetLevelElementsOfID(to.ID).IndexOf(to), to.ID);

@@ -8,9 +8,9 @@ namespace WYSLevelFormatTests
     public class LevelTests
     {
 
-        public Level CreateTestLevel()
+        public BaseLevel CreateTestLevel()
         {
-            Level level = new Level();
+            BaseLevel level = new BaseLevel();
 
             LevelElement element = new LevelElement();
 
@@ -59,11 +59,11 @@ namespace WYSLevelFormatTests
         [TestMethod]
         public void TestSerializationAndReserialization()
         {
-            Level level = CreateTestLevel();
+            BaseLevel level = CreateTestLevel();
 
             string levelinitserialize = level.Serialize();
 
-            Level SerializeAgain = Level.FromText(levelinitserialize);
+            BaseLevel SerializeAgain = BaseLevel.FromText(levelinitserialize);
 
             Assert.AreEqual(levelinitserialize, SerializeAgain.Serialize());
 
@@ -72,7 +72,7 @@ namespace WYSLevelFormatTests
         [TestMethod]
         public void TestOptimization()
         {
-            Level level = CreateTestLevel();
+            BaseLevel level = CreateTestLevel();
 
             string levelinitserialize = level.Serialize(true);
 
@@ -98,7 +98,7 @@ namespace WYSLevelFormatTests
         [TestMethod]
         public void CheckConnections()
         {
-            Level level = CreateTestLevel();
+            BaseLevel level = CreateTestLevel();
 
             level.GetConnection(level.Connections.First(), out LevelElement? from, out LevelElement? to);
             Assert.IsNotNull(from);

@@ -6,9 +6,9 @@ namespace WillYouSnailLevelFormat
 {
 
     /// <summary>
-    /// The main level object, this can be serialized and deserialized into valid Will You Snail levels.
+    /// The base level object, this can be serialized and deserialized into valid Will You Snail levels.
     /// </summary>
-    public class Level
+    public class BaseLevel
     {
         public string GameVersion = "1.5";
         public Vector2 LevelBounds = new Vector2(1920, 1080);
@@ -30,6 +30,9 @@ namespace WillYouSnailLevelFormat
         /// </summary>
         public List<Wire> Connections = new List<Wire>();
 
+        /// <summary>
+        /// The slots in the hotbar.
+        /// </summary>
         public string[] QuickSlots = new string[10];
 
         public override int GetHashCode()
@@ -42,10 +45,10 @@ namespace WillYouSnailLevelFormat
             return GameVersion + " | " + Elements.Count + " | " + (LevelBounds.X / 60f) + "x" + (LevelBounds.Y / 60f);
         }
 
-        public static Level FromText(string LevelData)
+        public static BaseLevel FromText(string LevelData)
         {
 
-            Level level = new Level();
+            BaseLevel level = new BaseLevel();
 
             string[] Lines = LevelData.Split(Environment.NewLine, StringSplitOptions.None);
 
@@ -149,7 +152,7 @@ namespace WillYouSnailLevelFormat
             return level;
         }
 
-        public static Level FromFile(string Path)
+        public static BaseLevel FromFile(string Path)
         {
             return FromText(File.ReadAllText(Path));
         }
@@ -158,7 +161,7 @@ namespace WillYouSnailLevelFormat
         /// Serializes this level into the WYS Level Format.
         /// Setting optimize to true will cut unnecessary entries from the Level Data list when serializing to reduce filesize.
         /// </summary>
-        public string Serialize(bool Optimize = false)
+        public virtual string Serialize(bool Optimize = false)
         {
             StringBuilder strb = new StringBuilder();
 
@@ -183,7 +186,7 @@ namespace WillYouSnailLevelFormat
             }
 
             strb.AppendLine();
-
+            
             strb.AppendLine("QUICK SLOTS:");
 
             for (int i = 0; i < 10; i++)
@@ -255,7 +258,7 @@ namespace WillYouSnailLevelFormat
         /// <summary>
         /// Get all LevelElements with a matching ID.
         /// </summary>
-        public List<LevelElement> GetLevelElementsOfID(string ID)
+        public virtual List<LevelElement> GetLevelElementsOfID(string ID)
         {
             return Elements.FindAll(s => s.ID == ID);
         }
