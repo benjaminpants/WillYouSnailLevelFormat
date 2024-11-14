@@ -142,7 +142,7 @@ namespace WillYouSnailLevelFormat
                 string ID2 = Lines[CurrentLine + 2];
                 int Index2 = int.Parse(Lines[CurrentLine + 3]);
                 level.Connections.Add(new Wire(new ElementReference(Index1, ID1), new ElementReference(Index2, ID2)));
-                CurrentLine += 4;
+                CurrentLine += 3;
             }
 
 
